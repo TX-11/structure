@@ -1,0 +1,50 @@
+队列是遵循**先进先出（FIFO，也称为先来先服务）原则的一组有序的项。队列在尾部添加新元素，并从顶部移除元素**。最新添加的元素必须排在队列的末尾。
+
+实现方法：
+
+`1、enqueue` 向队列尾部添加一个(或多个)新的项
+
+`2、dequeue` 移除队列的第一(即排在队列最前面的)项，并返回被移除的元素
+
+`3、head` 返回队列第一个元素，队列不做任何变动
+
+`4、tail` 返回队列最后一个元素，队列不做任何变动
+
+`5、isEmpty` 队列内无元素返回 `true`，否则返回 `false`
+
+`6、size` 返回队列内元素个数
+
+`7、clear` 清空队列
+
+
+function Queue(){
+    this.itemArr = []
+}
+Queue.prototype = {
+    enqueue(item){
+        return this.itemArr.push(item)
+    },
+    dequeue(){
+        return this.itemArr.shift()
+    },
+    head(){
+        return this.itemArr[0]
+    },
+    tail(){
+        return this.itemArr[this.itemArr.length - 1]
+    },
+    isEmpty(){
+        return !this.itemArr
+    },
+    size(){
+        return this.itemArr.length
+    },
+    clear(){
+        this.itemArr = []
+    	return this.itemArr
+    },
+    
+}
+let queue = new Queue()
+
+
