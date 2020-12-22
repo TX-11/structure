@@ -1,0 +1,138 @@
+链表：
+  要存储多个元素, 另外一个选择就是使用链表.但不同于数组, 链表中的元素在内存中不必是连续的空间.
+  链表的每个元素由一个存储元素本身的节点和一个指向下一个元素的引用(有些语言称为指针或者链接)组成.
+  相对于数组, 链表有一些优点:
+    内存空间不是比是连续的. 可以充分利用计算机的内存. 实现灵活的内存动态管理.
+    链表不必在创建时就确定大小, 并且大小可以无限的延伸下去.
+    链表在插入和删除数据时, 时间复杂度可以达到O(1). 相对数组效率高很多.
+  相对于数组, 链表有一些缺点:
+    链表访问任何一个位置的元素时, 都需要从头开始访问.(无法跳过第一个元素访问任何一个元素).
+    无法通过下标直接访问元素, 需要从头一个个访问, 直到找到对应的问题.
+
+链表常见操作
+
+1.append(element)：向列表尾部添加一个新的项
+
+2.insert(position, element)：向列表的特定位置插入一个新的项。
+
+3.remove(element)：从列表中移除一项。
+
+4.indexOf(element)：返回元素在列表中的索引。如果列表中没有该元素则返回`-1`。
+
+5.removeAt(position)：从列表的特定位置移除一项。
+
+6.isEmpty()：如果链表中不包含任何元素，返回`true`，如果链表长度大于0则返回`false`。
+
+7.size()：返回链表包含的元素个数。与数组的`length`属性类似。
+
+8.toString()：由于列表项使用了`Node`类，就需要重写继承自JavaScript对象默认的`toString`方法，让其只输出元素的值。
+
+
+创建一个链表类
+function LinkedList(){
+    // 封装一个Node类, 用于保存每个节点信息
+    function Node(element){
+        this.element = element
+        this.next = null
+    }
+     // 链表中的属性
+    this.length = 0
+    this.head = null
+}
+//链表方法
+LinkesList.prototype = {
+    //链表尾部添加
+    append(element){
+        let newNode = new Node(element)
+        
+        if(this.head === null){
+            this.head = newNode
+        }else{
+            let current = this.head
+            while(current.next){
+                current = current.next
+            }
+            current.next = newNode
+        }
+        this.length++
+    },
+    //链表插入
+    insert(position, element){
+        if(position < 0 || position > this.length) return false
+        
+        let newNode = new Node(element)
+        let current = this.head
+        let previous = null
+        let index = 0
+        
+        if(position == 0){
+            newNode.next = current
+            this.head = newNode
+        }else{
+            while(index++ < position){
+                previous = current
+                current = current.next
+            }
+            newNode.next = current
+            provious.next = newNode
+        }
+        this.length++
+        return true
+    },
+    //特定位置移除
+    removeAt(position){
+        if(position < 0 || position >= this.length) return null
+        
+        let current = this.head
+        let previous = null
+        let index = 0
+        
+        if(position == 0){
+            this.head = current.next
+        }else {
+            while(index ++ < position){
+                previous = current
+                current = current.next
+            }
+            previous.next = current.next
+        }
+        this.length --
+        return current.element
+    },
+    //查找元素索引
+    indexOf(element){
+        let current = this.head
+        let index = 0
+        while(current){
+            if(current.element === element){
+                return index
+            }
+            index ++
+            current = current.next
+        }
+        return -1
+    },
+    remove(element){
+      let index = this.indexOf(element)
+      return this.removeAt(index)
+    },
+    isEmpty(){
+      return this.length == 0  
+    },
+    size(){
+      return this.length  
+    },
+    toString(){
+        let current = this.head
+        let listString = ''
+        while(current){
+            listString += ',' + current.element
+            current = current.next
+        }
+        return listString.slice(1)
+    },
+    getFirst() {
+        return this.head.element
+    }
+}
+
